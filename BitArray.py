@@ -1,7 +1,8 @@
 from collections import MutableSequence
 
 class BitArray(MutableSequence):
-
+    """ An efficient class for representing a boolean array with a single integer """
+    
     def __init__(self, arr=0):
         self.arr = arr
 
