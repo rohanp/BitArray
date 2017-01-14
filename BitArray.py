@@ -3,7 +3,10 @@ from collections import MutableSequence
 class BitArray(MutableSequence):
 
     def __init__(self, arr=0):
-        self.arr = arr
+        if isinstance(arr, int):
+            self.arr = arr
+        else: # convert from list to binary to int
+            self.arr = int(''.join(map(str, arr)), 2)
 
     def __getitem__(self, i):
         if self.__len__() <= i:
