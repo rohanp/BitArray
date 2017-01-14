@@ -3,7 +3,7 @@
 from collections import MutableSequence
 
 class BitArray(MutableSequence):
-    
+
     def __init__(self, arr=0):
         if isinstance(arr, int):
             self.arr = arr
@@ -31,7 +31,7 @@ class BitArray(MutableSequence):
     def insert(self, i, val):
         self.arr = ((self.arr >> i << (i + 1)) # bits i + 1 to end
                     | val << i # bit i
-                    | (self.arr & (2 ** i - 1) )) # bits 0 to i - 1
+                    | (self.arr & (1 << i - 1) )) # bits 0 to i - 1
 
 def main():
     x = BitArray()
@@ -40,14 +40,15 @@ def main():
     x[4] = 1
     x[7] = 1
 
-    print(x[5]) # True
-    print(x[3]) # False
+    assert(x[5] == True)
+    assert(x[3] == False)
 
     del x[7]
-    print([int(el) for el in x]) # [0, 0, 0, 0, 1, 1]
+    assert([int(el) for el in x] == [0, 0, 0, 0, 1, 1])
 
-    print(x, len(x)) #000011
     x.insert(3, 1)
-    print(x, len(x)) #0001011
+    assert([int(el) for el in x] == [0, 0, 0, 1, 0, 1, 1])
+
+    print("All tests passed!")
 
 if __name__ == "__main__": main()
